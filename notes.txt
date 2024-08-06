@@ -1,0 +1,43 @@
+// مواقع اخبارية 
+// News 
+// allNews
+https://m.sa24.co/
+https://sa.highwia.com/
+https://artic.nl7za.com/
+https://almontag.com/
+https://www.yanba7.com/
+https://wikieurope.net/
+
+https://royanews.tv/section/19    ---> تكنو
+https://royanews.tv/section/17    ---> صحة
+
+https://aramland.com/
+https://arab.sahafahh.net/
+https://mz-mz.net/
+https://m.sa24.co/
+https://app.lesite24.com/
+https://mostakpel.com/
+https://www.kooora.com/
+https://www.youm7.com/
+https://mesrena.com/
+https://www.thaqfny.com/
+https://www.yallakora.com/
+https://gate.ahram.org.eg/
+https://m.sa24.co/
+https://www.webteb.com/
+https://mawdoo3.com/
+https://mhtwyat.com/
+https://news.faharas.net/
+https://www.khaberni.com/
+https://shbabbek.com/
+https://mobizil.com/
+https://jo.motory.com/ar/
+https://altibbi.com/
+https://jordanrec.com/
+https://shootz.yalla-shoot-tv.live/home18/
+https://trends.khbrny.com/
+
+
+
+// not work
+https://asaudinow.com/
