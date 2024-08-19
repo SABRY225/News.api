@@ -1,34 +1,35 @@
 const express = require('express');
-const { getNews, get24hoursArticle } = require('../controllers/artController');
+const { getTradeAndBusinessNews ,getEgyptNews} = require('../controllers/baldNewsController');
 const router = express.Router();
 
 /**
  * @swagger
  * tags:
- *   name: Art
+ *   name: BaldNews
  */
 
 /**
  * @swagger
- * /api/art/:
+ * /api/baldNews/egypt:
  *   get:
  *     summary: Retrieve all news
- *     tags: [Art]
+ *     tags: [BaldNews]
  *     responses:
  *       200:
  *         description: A list of all news
  */
-router.get('/',getNews);
+router.get('/egypt',getEgyptNews);
 
 /**
  * @swagger
- * /api/art/lastHours:
+ * /api/baldNews/TradeAndBusiness:
  *   get:
  *     summary: Retrieve all news
- *     tags: [Art]
+ *     tags: [BaldNews]
  *     responses:
  *       200:
- *         description: A list of all last News
+ *         description: A list of all news
  */
-router.get('/lastHours',get24hoursArticle);
+router.get('/TradeAndBusiness',getTradeAndBusinessNews);
+
 module.exports = router;

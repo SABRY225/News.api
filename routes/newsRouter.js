@@ -1,5 +1,5 @@
 const express = require('express');
-const { get24hoursNews, get12hoursNews, getNews } = require('../controllers/newsController');
+const {  get12hoursNews, getNews, getArticleNews, getRoyanewsNews, getPalestineRoyanewsNews, getJordanRoyanews, getPalestineRoyanews, getArabAndInternationalnews, getEconomynews, getSportnews, getTechnologynews, getHealthnews } = require('../controllers/newsController');
 const router = express.Router();
 
 /**
@@ -22,27 +22,95 @@ router.get('/allNews',getNews);
 
 /**
  * @swagger
- * /api/news/24hours:
+ * /api/news/articleNews/{url}:
  *   get:
- *     summary: Retrieve 24 hours news
  *     tags: [News]
+ *     parameters:
+ *       - in: path
+ *         name: url
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the order to edit
  *     responses:
  *       200:
- *         description: A 24 hours of  news
+ *         description: Article of  news
  */
-router.get('/24hours',get24hoursNews);
+router.get('/articleNews/:url',getArticleNews);
 
 /**
  * @swagger
- * /api/news/12hours:
+ * /api/news/palestineRoyanews:
  *   get:
- *     summary: Retrieve 12 hours news
  *     tags: [News]
  *     responses:
  *       200:
- *         description: A list of 12 hours of news
+ *         description: Palestine Royanews of  news
  */
-router.get('/12hours',get12hoursNews);
+router.get('/palestineRoyanews',getPalestineRoyanews);
 
+/**
+ * @swagger
+ * /api/news/jordanRoyanews:
+ *   get:
+ *     tags: [News]
+ *     responses:
+ *       200:
+ *         description: Jordan Royanews of  news
+ */
+router.get('/jordanRoyanews',getJordanRoyanews);
 
+/**
+ * @swagger
+ * /api/news/arabAndInternationalnews:
+ *   get:
+ *     tags: [News]
+ *     responses:
+ *       200:
+ *         description: Jordan Royanews of  news
+ */
+router.get('/arabAndInternationalnews',getArabAndInternationalnews);
+
+/**
+ * @swagger
+ * /api/news/economynews:
+ *   get:
+ *     tags: [News]
+ *     responses:
+ *       200:
+ *         description: Jordan Royanews of  news
+ */
+router.get('/economynews',getEconomynews);
+/**
+ * @swagger
+ * /api/news/sportnews:
+ *   get:
+ *     tags: [News]
+ *     responses:
+ *       200:
+ *         description: Jordan Royanews of  news
+ */
+router.get('/sportnews',getSportnews);
+
+/**
+ * @swagger
+ * /api/news/healthnews:
+ *   get:
+ *     tags: [News]
+ *     responses:
+ *       200:
+ *         description: Jordan Royanews of  news
+ */
+router.get('/healthnews',getHealthnews);
+
+/**
+ * @swagger
+ * /api/news/technologynews:
+ *   get:
+ *     tags: [News]
+ *     responses:
+ *       200:
+ *         description: Jordan Royanews of  news
+ */
+router.get('/technologynews',getTechnologynews);
 module.exports = router;

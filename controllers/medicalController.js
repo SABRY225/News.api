@@ -1,36 +1,48 @@
 
 const axios = require('axios');
 const cheerio = require('cheerio');
-const url = 'https://royanews.tv/section/17/'; 
 const getNews = async (req, res) => {
     try {
-        const { data } = await axios.get(url);
+        // Fetch the page's HTML
+        const { data } = await axios.get('https://www.webteb.com/articles');
 
         // Load HTML into cheerio
         const $ = cheerio.load(data);
-        const newsArticles = [];
 
-        // Select and gather information
-        $('div.news_card_small').each((index, element) => {
-            const titleElement = $(element).find('div.news_card_small_title a');
-            const title = titleElement.text().trim();
-            const link = 'https://royanews.tv'+titleElement.attr('href');
-            const date = $(element).find('div.news_card_small_pub_date').text().trim();
-            const categoryElement = $(element).find('div.news_card_small_pub_category a');
-            const img = $(element).find('div.main_image img').attr('src');
+        // Initialize an array to hold the extracted articles
+        let articles = [];
 
-            newsArticles.push({
+        // Select the container that holds the article information
+        $('.item-box-cotainer .item-box').each((index, element) => {
+            // Extract the category name and link
+            let category = $(element).find('.ib-head a.category .category-name').text().trim();
+            let categoryLink = $(element).find('.ib-head a.category').attr('href');
+
+            // Extract the article title and link
+            let title = $(element).find('a.block').attr('title').trim();
+            let link = $(element).find('a.block').attr('href');
+
+            // Extract the image URL
+            let imageUrl = $(element).find('.img-wrap img').attr('src');
+
+            // Add the article details to the articles array
+            articles.push({
+                category,
+                categoryLink,
                 title,
                 link,
-                date,
-                img
+                imageUrl
             });
         });
 
-        return res.status(201).json(newsArticles);
+        // Log the extracted data
+        console.log(articles);
+         // Return data as JSON response
+         const articlesLength = articles.length; // Corrected spelling
+         return res.status(200).json({ articlesLength, articles });
+
     } catch (error) {
-        console.error(`Error fetching the news articles: ${error.message}`);
-        return res.status(500).json({ error: 'Error fetching the news articles' });
+        console.error('Error fetching or processing the page:', error.message);
     }
 };
 

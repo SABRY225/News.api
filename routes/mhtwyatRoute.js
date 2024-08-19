@@ -1,33 +1,35 @@
 const express = require('express');
-const { getNews, get24hoursArticle } = require('../controllers/entertainmentController');
+const { getNews, getMhtwyatMedical } = require('../controllers/mhtwyatController');
 const router = express.Router();
 
 /**
  * @swagger
  * tags:
- *   name: Entertainment
+ *   name: Mhtwyat
  */
 
 /**
  * @swagger
- * /api/entertainment/:
+ * /api/mhtwyat/:
  *   get:
  *     summary: Retrieve all news
- *     tags: [Entertainment]
+ *     tags: [Mhtwyat]
  *     responses:
  *       200:
  *         description: A list of all news
  */
 router.get('/',getNews);
+
 /**
  * @swagger
- * /api/entertainment/lastHours:
+ * /api/mhtwyat/mhtwyatMedical:
  *   get:
  *     summary: Retrieve all news
- *     tags: [Entertainment]
+ *     tags: [Mhtwyat]
  *     responses:
  *       200:
  *         description: A list of all last News
  */
-router.get('/lastHours',get24hoursArticle);
+router.get('/mhtwyatMedical',getMhtwyatMedical);
+
 module.exports = router;

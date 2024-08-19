@@ -1,63 +1,105 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { getChatResponse } = require('../services/openaiTitleService');
 const url='https://m.sa24.co/topic2.html'
 
 const getArticle= async (req, res) => {
     try {
-        // جلب البيانات من الموقع
-        const { data } = await axios.get(url);
-        // console.log('Data received:', data); 
+        // Fetch the page's HTML
+        const { data } = await axios.get('https://mawdoo3.com/%D8%AE%D8%A7%D8%B5:%D8%A3%D8%AC%D8%AF%D8%AF_%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA');
 
-        // تحميل HTML في cheerio
+        // Load HTML into cheerio
         const $ = cheerio.load(data);
-        const articles = [];
 
-        // تحديد العناصر وجمع المعلومات
-        $('div.main_newsz').each((index, element) => {
-            const titleElement = $(element).find('div.main_title_textz a');
-            const title = titleElement.text().trim();
-            const link = titleElement.attr('href');
-            const date = $(element).find('span.time').attr('title').trim();
-            const img = $(element).find('img.main_img').attr('src'); // استخرج رابط الصورة
+        // Initialize an array to hold the extracted articles
+        let articles = [];
 
-            // دفع المعلومات إلى المصفوفة
-            articles.push({ title, link, date, img });
-        });
+        // Select the list item containing the article
+        await Promise.all($('li.columns.large-4.medium-3.small-6').map(async (index, element) => {
+            // Extract the article link
+            let link = $(element).find('a.category-box').attr('href');
 
-        return res.status(201).json(articles);
+            // Add the base URL if the link is relative
+            if (link && !link.startsWith('http')) {
+                link = `https://modo3.com${link}`;
+            }
+
+            // Extract the article title
+            let title = $(element).find('div.title').text().trim();
+
+            // Extract the image URL
+            let imageUrl = $(element).find('img.avatar').attr('src');
+            try {
+                const responseMessage = await getChatResponse(title);
+                title = responseMessage || title; // Use the response or fallback to original title
+            } catch (error) {
+                console.error('Error getting chat response:', error.message);
+                title = 'Error in generating title';
+            }
+            // Add the article details to the articles array
+            articles.push({
+                title,
+                link,
+                imageUrl
+            });
+        }));
+
+        // Output the extracted data
+        console.log(articles);
+        const articlesLength = articles.length; // Corrected spelling
+        return res.status(200).json({ articlesLength, articles });
     } catch (error) {
-        console.error(`Error fetching the articles: ${error.message}`);
-        return res.status(500).json({ error: 'Error fetching the articles' });
+        console.error('Error extracting data:', error.message);
     }
 }
 
 const get24hoursArticle = async (req, res) => {
     try {
-        // جلب البيانات من الموقع
-        const { data } = await axios.get(url);
-        // console.log('Data received:', data); 
-    
-        // تحميل HTML في cheerio
-        const $ = cheerio.load(data);
-        const articles = [];
-    
-        // تحديد العناصر وجمع المعلومات
-        $('div.rights_body').each((index, element) => {
-            const titleElement = $(element).find('h5.rtitle a');
-            const title = titleElement.text().trim();
-            const link = titleElement.attr('href');
-            const date = $(element).find('span.timeago').attr('title').trim();
-            const source = $(element).find('div.ni_source a').text().trim();
-            const img = $(element).find('img').attr('src'); // Assuming there might be an img element
+        // Fetch the page's HTML
+        const { data } = await axios.get('https://mawdoo3.com/%D8%AE%D8%A7%D8%B5:%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA_%D8%A7%D9%84%D8%A3%D9%83%D8%AB%D8%B1_%D9%85%D8%B4%D8%A7%D9%87%D8%AF%D8%A9');
 
-            // دفع المعلومات إلى المصفوفة
-            articles.push({ title, link, date, source, img });
-        });
-        
-        return res.status(201).json(articles);
+        // Load HTML into cheerio
+        const $ = cheerio.load(data);
+
+        // Initialize an array to hold the extracted articles
+        let articles = [];
+
+        // Select the list item containing the article
+        await Promise.all($('li.columns.large-4.medium-3.small-6').map(async (index, element) => {
+            // Extract the article link
+            let link = $(element).find('a.category-box').attr('href');
+
+            // Add the base URL if the link is relative
+            if (link && !link.startsWith('http')) {
+                link = `https://modo3.com${link}`;
+            }
+
+            // Extract the article title
+            let title = $(element).find('div.title').text().trim();
+
+            // Extract the image URL
+            let imageUrl = $(element).find('img.avatar').attr('src');
+            try {
+                const responseMessage = await getChatResponse(title);
+                title = responseMessage || title; // Use the response or fallback to original title
+            } catch (error) {
+                console.error('Error getting chat response:', error.message);
+                title = 'Error in generating title';
+            }
+            // Add the article details to the articles array
+            articles.push({
+                title,
+                link,
+                imageUrl
+            });
+        }));
+
+        // Output the extracted data
+        console.log(articles);
+        const articlesLength = articles.length; // Corrected spelling
+        return res.status(200).json({ articlesLength, articles });
     } catch (error) {
-        console.error(`Error fetching the articles: ${error.message}`);
-        return res.status(500).json({ error: 'Error fetching the articles' });
+        console.error('Error extracting data:', error.message);
     }
 }
 
