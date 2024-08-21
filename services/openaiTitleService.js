@@ -4,9 +4,8 @@ async function getChatResponse(prompt) {
         const response = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
-                model: 'gpt-4o', 
-                messages: [{ role: 'user', content: `Rewrite the following title without repeating words, taking into account the rules of grammar, and deleting any website name. The title is: ${prompt}. Translate it into Arabic.` }],
-                max_tokens: 150
+                model: 'gpt-4', 
+                messages: [{ role: 'user', content: `Rewrite the following title without repeating words, taking into account the rules of grammar, and deleting any website name. The title is: ${prompt}. Translate it into Arabic.` }]
             },
             {
                 headers: {

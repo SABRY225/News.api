@@ -18,24 +18,24 @@ const getNews = async (req, res) => {
             var img = $(element).find('a.post-thumb img').attr('src');
             if (title && img) {
                 var link = titleElement.attr('href');
-            try {
-                const responseMessage = await getChatResponse(title);
-                if (responseMessage) {
-                    title = responseMessage;
-                } else {
-                    title = 'No response from the API.';
-                }
-            } catch (error) {
-                console.error('Error getting chat response:', error.message);
-                title = 'Error in generating title';
-            }
+            // try {
+            //     const responseMessage = await getChatResponse(title);
+            //     if (responseMessage) {
+            //         title = responseMessage;
+            //     } else {
+            //         title = 'No response from the API.';
+            //     }
+            // } catch (error) {
+            //     console.error('Error getting chat response:', error.message);
+            //     title = 'Error in generating title';
+            // }
                 articles.push({ title, link, img });
             }
         });
          // Wait for all promises to resolve
          await Promise.all(articlePromises);
         var articlesLenth=articles.length
-        return res.status(201).json({articlesLenth,articles});
+        return res.status(201).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -57,13 +57,13 @@ const getArticleNews = async (req, res) => {
         const articlePromises = $('div.entry-content.entry.clearfix').map(async (index, element) => {
             let content = $(element).html();
 
-            try {
-                const responseMessage = await getChatContentResponse(content);
-                content = responseMessage || 'No response from the API.';
-            } catch (error) {
-                console.error('Error getting chat response:', error.message);
-                content = 'Error in generating title';
-            }
+            // try {
+            //     const responseMessage = await getChatContentResponse(content);
+            //     content = responseMessage || 'No response from the API.';
+            // } catch (error) {
+            //     console.error('Error getting chat response:', error.message);
+            //     content = 'Error in generating title';
+            // }
 
             return content.replace(/\n/g, ''); // Replace new lines after content is processed
         }).get(); // .get() to convert the Cheerio object to an array
@@ -105,13 +105,13 @@ const getPalestineRoyanews = async (req, res) => {
         
             // Add article to the list
             if (title && link) {
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || 'No response from the API.';
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || 'No response from the API.';
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
                 return {
                     title,
                     link,
@@ -128,7 +128,7 @@ const getPalestineRoyanews = async (req, res) => {
 
         // Return data as JSON response
         const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles );
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -161,13 +161,13 @@ const getJordanRoyanews = async (req, res) => {
 
             // Process the title with getChatResponse
             if (title && link) {
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || title; // Use the response or fallback to original title
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || title; // Use the response or fallback to original title
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 // Add article to the list
                 articles.push({
@@ -182,7 +182,7 @@ const getJordanRoyanews = async (req, res) => {
 
         // Return data as JSON response
         const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles );
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -215,13 +215,13 @@ const getArabAndInternationalnews = async (req, res) => {
 
             // Process the title with getChatResponse
             if (title && link) {
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || title; // Use the response or fallback to original title
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || title; // Use the response or fallback to original title
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 // Add article to the list
                 articles.push({
@@ -236,7 +236,7 @@ const getArabAndInternationalnews = async (req, res) => {
 
         // Return data as JSON response
         const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -269,13 +269,13 @@ const getEconomynews = async (req, res) => {
 
             // Process the title with getChatResponse
             if (title && link) {
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || title; // Use the response or fallback to original title
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || title; // Use the response or fallback to original title
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 // Add article to the list
                 articles.push({
@@ -290,7 +290,7 @@ const getEconomynews = async (req, res) => {
 
         // Return data as JSON response
         const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -322,13 +322,13 @@ const getSportnews = async (req, res) => {
 
             // Process the title with getChatResponse
             if (title && link) {
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || title; // Use the response or fallback to original title
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || title; // Use the response or fallback to original title
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 // Add article to the list
                 articles.push({
@@ -343,7 +343,7 @@ const getSportnews = async (req, res) => {
 
         // Return data as JSON response
         const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -376,13 +376,13 @@ const getTechnologynews = async (req, res) => {
 
             // Process the title with getChatResponse
             if (title && link) {
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || title; // Use the response or fallback to original title
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || title; // Use the response or fallback to original title
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 // Add article to the list
                 articles.push({
@@ -397,7 +397,7 @@ const getTechnologynews = async (req, res) => {
 
         // Return data as JSON response
         const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -430,13 +430,13 @@ const getHealthnews = async (req, res) => {
 
             // Process the title with getChatResponse
             if (title && link) {
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || title; // Use the response or fallback to original title
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || title; // Use the response or fallback to original title
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 // Add article to the list
                 articles.push({
@@ -451,7 +451,7 @@ const getHealthnews = async (req, res) => {
 
         // Return data as JSON response
         const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });

@@ -42,7 +42,7 @@ const getNews = async (req, res) => {
         newsArticles = await Promise.all(articlePromises);
 
         const newsArticlesLength = newsArticles.length;
-        return res.status(201).json({ newsArticlesLength, newsArticles });
+        return res.status(201).json(newsArticles);
     } catch (error) {
         console.error(`Error fetching the news articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the news articles' });
@@ -82,7 +82,7 @@ const getOtherNews = async (req, res) => {
         });
 
         const newsArticlesLength = newsArticles.length;
-        return res.status(201).json({ newsArticlesLength, newsArticles });
+        return res.status(201).json(newsArticles);
     } catch (error) {
         console.error(`Error fetching the news articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the news articles' });
@@ -121,7 +121,7 @@ const getnabdNews = async (req, res) => {
         });
 
         const newsArticlesLength = newsArticles.length;
-        return res.status(201).json({ newsArticlesLength, newsArticles });
+        return res.status(201).json(newsArticles);
     } catch (error) {
         console.error(`Error fetching the news articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the news articles' });
@@ -157,18 +157,18 @@ const getNewArticle = async (req, res) => {
         }
 
         // Fetch the response from OpenAI API
-        try {
-            const responseMessage = await getChatArticlesResponse(content, title);
-            if (responseMessage) {
-                content = responseMessage;  // Override the content with the AI-generated content
-            } else {
-                console.warn('No response from the OpenAI API.');
-                content = 'No response from the API.';
-            }
-        } catch (error) {
-            console.error('Error getting chat response:', error.message);
-            content = 'Error in generating content from the AI API.';
-        }
+        // try {
+        //     const responseMessage = await getChatArticlesResponse(content, title);
+        //     if (responseMessage) {
+        //         content = responseMessage;  // Override the content with the AI-generated content
+        //     } else {
+        //         console.warn('No response from the OpenAI API.');
+        //         content = 'No response from the API.';
+        //     }
+        // } catch (error) {
+        //     console.error('Error getting chat response:', error.message);
+        //     content = 'Error in generating content from the AI API.';
+        // }
 
         // Prepare the article data
         const article = {

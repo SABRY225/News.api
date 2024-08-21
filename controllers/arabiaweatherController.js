@@ -20,13 +20,13 @@ const getlocalNews = async (req, res) => {
 
             if (title && img) {
                 const link = $(element).find('a.post-link').attr('href');
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || 'No response from the API.';
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || 'No response from the API.';
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 articles.push({ title, link, img });
             }
@@ -36,7 +36,7 @@ const getlocalNews = async (req, res) => {
         await Promise.all(articlePromises);
 
         const articlesLength = articles.length;
-        return res.status(201).json({ articlesLength, articles });
+        return res.status(201).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -60,13 +60,13 @@ const getArabeNews = async (req, res) => {
 
             if (title && img) {
                 const link = $(element).find('a.post-link').attr('href');
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || 'No response from the API.';
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || 'No response from the API.';
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 articles.push({ title, link, img });
             }
@@ -76,7 +76,7 @@ const getArabeNews = async (req, res) => {
         await Promise.all(articlePromises);
 
         const articlesLength = articles.length;
-        return res.status(201).json({ articlesLength, articles });
+        return res.status(201).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });
@@ -100,13 +100,13 @@ const getSportNews = async (req, res) => {
 
             if (title && img) {
                 const link = $(element).find('a.post-link').attr('href');
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    title = responseMessage || 'No response from the API.';
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     title = responseMessage || 'No response from the API.';
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 articles.push({ title, link, img });
             }
@@ -116,7 +116,7 @@ const getSportNews = async (req, res) => {
         await Promise.all(articlePromises);
 
         const articlesLength = articles.length;
-        return res.status(201).json({ articlesLength, articles });
+        return res.status(201).json(articles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });

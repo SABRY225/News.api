@@ -6,7 +6,7 @@ const { getChatResponse } = require('./services/openaiTitleService');
 // Load environment variables
 dotenv.config();
 
-const app = express();
+const { app, server } = require('./Socket/socket');
 // Middleware
 app.use(express.json());
 app.use(cors());

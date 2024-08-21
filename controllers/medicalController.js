@@ -39,7 +39,7 @@ const getNews = async (req, res) => {
         console.log(articles);
          // Return data as JSON response
          const articlesLength = articles.length; // Corrected spelling
-         return res.status(200).json({ articlesLength, articles });
+         return res.status(200).json(articles);
 
     } catch (error) {
         console.error('Error fetching or processing the page:', error.message);

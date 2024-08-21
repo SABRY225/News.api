@@ -2,7 +2,6 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const { getChatResponse } = require('../services/openaiTitleService');
 const { getChatContentResponse } = require('../services/openaiContentService');
-const url = 'https://m.sa24.co/topic5.html';
 const url2 = 'https://www.filgoal.com/matches/?date=';
 
 
@@ -28,17 +27,17 @@ const getNews = async (req, res) => {
                 const date = $(element).attr('data-id').trim();
 
                 // Fetch the response from OpenAI API
-                try {
-                    const responseMessage = await getChatResponse(title);
-                    if (responseMessage) {
-                        title = responseMessage;
-                    } else {
-                        title = 'No response from the API.';
-                    }
-                } catch (error) {
-                    console.error('Error getting chat response:', error.message);
-                    title = 'Error in generating title';
-                }
+                // try {
+                //     const responseMessage = await getChatResponse(title);
+                //     if (responseMessage) {
+                //         title = responseMessage;
+                //     } else {
+                //         title = 'No response from the API.';
+                //     }
+                // } catch (error) {
+                //     console.error('Error getting chat response:', error.message);
+                //     title = 'Error in generating title';
+                // }
 
                 // إرجاع المقالة ككائن
                 return { title, link, date, img };
@@ -50,7 +49,7 @@ const getNews = async (req, res) => {
 
         const filteredArticles = articles.filter(article => article); // إزالة القيم الفارغة
         const articlesLength = filteredArticles.length;
-        return res.status(201).json({ articlesLength, articles: filteredArticles });
+        return res.status(201).json(filteredArticles);
     } catch (error) {
         console.error(`Error fetching the articles: ${error.message}`);
         return res.status(500).json({ error: 'Error fetching the articles' });

@@ -47,12 +47,11 @@ const getArticle= async (req, res) => {
         // Output the extracted data
         console.log(articles);
         const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles);
     } catch (error) {
         console.error('Error extracting data:', error.message);
     }
 }
-
 const get24hoursArticle = async (req, res) => {
     try {
         // Fetch the page's HTML
@@ -64,14 +63,14 @@ const get24hoursArticle = async (req, res) => {
         // Initialize an array to hold the extracted articles
         let articles = [];
 
-        // Select the list item containing the article
-        await Promise.all($('li.columns.large-4.medium-3.small-6').map(async (index, element) => {
+        // Select the list items containing the articles
+        $('li.columns.large-4.medium-3.small-6').each((index, element) => {
             // Extract the article link
             let link = $(element).find('a.category-box').attr('href');
 
             // Add the base URL if the link is relative
             if (link && !link.startsWith('http')) {
-                link = `https://modo3.com${link}`;
+                link = `https://mawdoo3.com${link}`;
             }
 
             // Extract the article title
@@ -79,27 +78,32 @@ const get24hoursArticle = async (req, res) => {
 
             // Extract the image URL
             let imageUrl = $(element).find('img.avatar').attr('src');
-            try {
-                const responseMessage = await getChatResponse(title);
-                title = responseMessage || title; // Use the response or fallback to original title
-            } catch (error) {
-                console.error('Error getting chat response:', error.message);
-                title = 'Error in generating title';
-            }
+
             // Add the article details to the articles array
             articles.push({
                 title,
                 link,
                 imageUrl
             });
-        }));
+        });
+
+        // Optionally, you can modify the titles asynchronously (if needed) after gathering all articles
+        // for (let i = 0; i < articles.length; i++) {
+        //     try {
+        //         const responseMessage = await getChatResponse(articles[i].title);
+        //         articles[i].title = responseMessage || articles[i].title; // Use the response or fallback to original title
+        //     } catch (error) {
+        //         console.error('Error getting chat response:', error.message);
+        //         articles[i].title = 'Error in generating title';
+        //     }
+        // }
 
         // Output the extracted data
         console.log(articles);
-        const articlesLength = articles.length; // Corrected spelling
-        return res.status(200).json({ articlesLength, articles });
+        return res.status(200).json(articles);
     } catch (error) {
         console.error('Error extracting data:', error.message);
+        return res.status(500).json({ error: 'Error extracting data' });
     }
 }
 

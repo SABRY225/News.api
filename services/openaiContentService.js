@@ -4,7 +4,7 @@ async function getChatContentResponse(content) {
         const response = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
-                model: 'gpt-4o',
+                model: 'gpt-4-turbo',
                 messages: [{
                     role: 'user', content: `The code is improved and any links are removed, without adding any other codes to it, This is the code ${content}` }]
             },
